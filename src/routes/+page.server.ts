@@ -10,7 +10,7 @@ type Patient = {
   number_of_male_children: number;
   number_of_female_children: number;
   address: string;
-  mobile_number: number;
+  mobile_no: number;
   referred_by: string;
   last_menstrual_period: Date;
 };

@@ -5,7 +5,7 @@
 </script>
 
 <!-- component -->
-<div class="h-screen w-screen flex bg-base-200">
+<div class="h-screen w-screen flex bg-base-400">
 	<!-- container -->
   
 	<Sidebar />
@@ -13,7 +13,11 @@
 
   <div class="flex flex-col justify-center items-center h-screen">
     <div class="flex flex-row justify-end items-center self-end mx-12">
-      <div class="btn btn-primary mx-auto">Add</div>
+      <a href="./add-form">
+        <div class="btn btn-primary mx-auto">
+          Add
+        </div>
+      </a>
       <label class="input mx-auto">
         <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g
@@ -39,7 +43,7 @@
         <thead>
           <tr>
             <th></th>
-            <th>ID</th>
+            <th>Patient ID</th>
             <th>Date of USG</th>
             <th>Patient Name</th>
             <th>Husband Name</th>
@@ -57,7 +61,7 @@
           {#each data.patients as patient}
             <tr>
               <td><input type="checkbox" class="checkbox checkbox-primary" /></td>
-              <th>{patient.id}</th>
+              <th>{patient.patient_id}</th>
               <td>{patient.date_of_usg}</td>
               <td>{patient.patient_name}</td>
               <td>{patient.husband_name}</td>

@@ -2,7 +2,7 @@ import type { PageServerLoad } from './$types';
 import { supabase } from '$lib/supabaseClient';
 
 type Patient = {
-  id: number;
+  patient_id: number;
   date_of_usg: Date;
   patient_name: string;
   husband_name: string;

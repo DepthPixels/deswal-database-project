@@ -5,7 +5,7 @@
 </script>
 
 <!-- component -->
-<div class="h-screen w-screen flex bg-base-400">
+<div class="h-screen w-screen flex bg-base-300">
 	<!-- container -->
   
 	<Sidebar />

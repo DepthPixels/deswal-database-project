@@ -1,10 +1,9 @@
 <script lang="ts">
-  import Sidebar from '$lib/components/Sidebar.svelte'
+
+  let { data } = $props();
 </script>
 
-<div class="h-screen w-screen flex bg-base-300">
-  <Sidebar />
-  <!-- Form Content -->
+<div class="flex flex-col justify-center items-center h-screen w-screen bg-base-300">
   <form class="m-auto" method="POST">
     <fieldset class="fieldset bg-base-200 border-neutral rounded-box border p-4">
       <legend class="fieldset-legend">Add a Patient</legend>
@@ -12,7 +11,7 @@
       <div class="grid grid-cols-4 gap-5">
         <div class="col-span-2">
           <label for="patient_id" class="label">Patient ID</label>
-          <input name="patient_id" type="number" id="patient_id" class="input"/>
+          <input name="patient_id" type="number" id="patient_id" class="input" value={data.nextEmptyId}/>
         </div>
 
         <div class="col-span-2">
@@ -51,13 +50,23 @@
         </div>
 
         <div class="col-span-2">
+          <label for="male_children_ages" class="label">Ages of Male Children</label>
+          <input name="male_children_ages" type="text" id="male_children_ages" class="input" placeholder="Enter values like 2,6 without words or spaces"/>
+        </div>
+
+        <div class="col-span-2">
+          <label for="female_children_ages" class="label">Ages of Female Children</label>
+          <input name="female_children_ages" type="text" id="female_children_ages" class="input" placeholder="Enter 0 if none"/>
+        </div>
+
+        <div class="col-span-2">
           <label for="referred_by" class="label">Referred By</label>
           <input name="referred_by" type="text" id="referred_by" class="input"/>
         </div>
 
         <div class="col-span-2">
           <label for="mobile_no" class="label">Mobile Number</label>
-          <input name="mobile_no" type="number" id="mobile_no" class="input"/>
+          <input name="mobile_no" type="number" id="mobile_no" class="input" pattern="[0-9]*" minlength="10" maxlength="10"/>
         </div>
 
         <div class="col-span-2">

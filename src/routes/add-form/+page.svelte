@@ -70,9 +70,21 @@
         </div>
 
         <div class="col-span-2">
+          <label for="rch_id" class="label">RCH ID</label>
+          <input name="rch_id" type="number" id="rch_id" class="input"/>
+        </div>
+
+        <div class="col-span-2">
+          <label for="gestational_age" class="label">Gestational Age</label>
+          <input name="gestational_age" type="text" id="gestational_age" class="input"/>
+        </div>
+
+        <div class="col-span-2">
           <label for="address" class="label">Address</label>
           <textarea name="address" id="address" class="textarea"></textarea>
         </div>
+
+
         <div class="col-span-1"></div>
 
         <button class="btn btn-primary self-end">Submit</button>

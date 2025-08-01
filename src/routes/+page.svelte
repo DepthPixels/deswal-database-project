@@ -91,6 +91,8 @@
           <th>Phone</th>
           <th>Referred By</th>
           <th>Last Menstrual Period</th>
+          <th>Gestational Age</th>
+          <th>RCH ID</th>
         </tr>
       </thead>
       <tbody>
@@ -111,6 +113,8 @@
             <td>{patient.mobile_no}</td>
             <td>{patient.referred_by}</td>
             <td>{patient.last_menstrual_period}</td>
+            <td>{patient.gestational_age}</td>
+            <td>{patient.rch_id}</td>
           </tr>
         {/each}
       </tbody>

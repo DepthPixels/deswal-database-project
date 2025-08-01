@@ -1,8 +1,15 @@
 import { supabase } from '$lib/supabaseClient';
 
 // Fetching must be self contained in +page.server.ts
-export async function handleFetch(): Promise<Patient[]> {
-  const { data, error } = await supabase.from('patients').select<'patients', Patient>();
+export async function handleFetch(patient_id: number | null = null): Promise<Patient[]> {
+  if (patient_id) {
+    var { data, error } = await supabase
+      .from('patients')
+      .select<'patients', Patient>()
+      .eq('patient_id', patient_id);
+  } else {
+    var { data, error } = await supabase.from('patients').select<'patients', Patient>().order('patient_id', { ascending: true });
+  }
 
   if (error) {
     console.error('Error fetching patients:', error.message);
@@ -11,7 +18,7 @@ export async function handleFetch(): Promise<Patient[]> {
     console.log("Data loaded:", data);
   }
 
-  return data;
+  return data ?? [];
 }
 
 
@@ -35,6 +42,33 @@ export async function handleDeletion(idList: string[]): Promise<void> {
 
   if (error) {
     console.error('Error deleting patients:', error.message);
+  }
+}
+
+// Update Function
+export async function handleUpdate(inData: FormData): Promise<void> {
+  const { error } = await supabase
+        .from('patients')
+        .update({
+          date_of_usg: inData.get('date_of_usg'),
+          patient_name: inData.get('patient_name'),
+          husband_name: inData.get('husband_name'),
+          patient_age: inData.get('patient_age'),
+          last_menstrual_period: inData.get('last_menstrual_period'),
+          number_of_male_children: inData.get('number_of_male_children'),
+          number_of_female_children: inData.get('number_of_female_children'),
+          male_children_ages: inData.get('male_children_ages'),
+          female_children_ages: inData.get('female_children_ages'),
+          referred_by: inData.get('referred_by'),
+          mobile_no: inData.get('mobile_no'),
+          address: inData.get('address'),
+          gestational_age: inData.get('gestational_age'),
+          rch_id: inData.get('rch_id')
+        })
+        .eq('patient_id', inData.get('patient_id'));
+
+  if (error) {
+    console.error('Error updating patients:', error.message);
   }
 }
 

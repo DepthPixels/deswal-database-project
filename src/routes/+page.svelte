@@ -50,11 +50,16 @@
       <kbd class="kbd kbd-sm">M</kbd>
     </label>
     <a href="./add-form">
-      <div class="btn btn-primary mx-2">
+      <div class="btn btn-primary mx-1">
         Add
       </div>
     </a>
     {#if selectedRows.length > 0}
+      <a href='./update_record/{selectedRows[0]}'>
+        <div class="btn btn-accent mx-1">
+          Edit
+        </div>
+      </a>
       <button class="btn btn-error mx-1" onclick={() => {
         handleDeletion(selectedRows);
         selectedRows = []; // Clear selection after deletion
@@ -63,6 +68,9 @@
         Delete
       </button>
     {:else}
+      <button class="btn btn-accent mx-1" disabled>
+        Edit
+      </button>
       <button class="btn btn-error mx-1" disabled>
         Delete
       </button>
@@ -83,14 +91,14 @@
           <th>Patient Name</th>
           <th>Husband Name</th>
           <th>Age</th>
-          <th>Male Children</th>
-          <th>Female Children</th>
-          <th>Male Children Ages</th>
-          <th>Female Children Ages</th>
-          <th>Address</th>
+          <th class="text-wrap">Male Children</th>
+          <th class="text-wrap">Female Children</th>
+          <th class="text-wrap">Male Children Ages</th>
+          <th class="text-wrap">Female Children Ages</th>
+          <th class="overflow-x-auto min-w-60">Address</th>
           <th>Phone</th>
           <th>Referred By</th>
-          <th>Last Menstrual Period</th>
+          <th class="text-wrap min-w-36">Last Menstrual Period</th>
           <th>Gestational Age</th>
           <th>RCH ID</th>
         </tr>

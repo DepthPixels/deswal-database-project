@@ -16,5 +16,5 @@ type Patient = {
   referred_by: string;
   last_menstrual_period: Date;
   gestational_age: string;
-  rch_id: number;
+  rch_id: string;
 };

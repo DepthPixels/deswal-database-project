@@ -19,7 +19,7 @@ export async function handleFetch(): Promise<Patient[]> {
 export async function handleAddition(inData: FormData): Promise<void> {
   const { error } = await supabase
         .from('patients')
-        .insert({ patient_id: inData.get('patient_id'), date_of_usg: inData.get('date_of_usg'), patient_name: inData.get('patient_name'), husband_name: inData.get('husband_name'), patient_age: inData.get('patient_age'), last_menstrual_period: inData.get('last_menstrual_period'), number_of_male_children: inData.get('number_of_male_children'), number_of_female_children: inData.get('number_of_female_children'), male_children_ages: inData.get('male_children_ages'), female_children_ages: inData.get('female_children_ages'), referred_by: inData.get('referred_by'), mobile_no: inData.get('mobile_no'), address: inData.get('address') });
+        .insert({ patient_id: inData.get('patient_id'), date_of_usg: inData.get('date_of_usg'), patient_name: inData.get('patient_name'), husband_name: inData.get('husband_name'), patient_age: inData.get('patient_age'), last_menstrual_period: inData.get('last_menstrual_period'), number_of_male_children: inData.get('number_of_male_children'), number_of_female_children: inData.get('number_of_female_children'), male_children_ages: inData.get('male_children_ages'), female_children_ages: inData.get('female_children_ages'), referred_by: inData.get('referred_by'), mobile_no: inData.get('mobile_no'), address: inData.get('address'), gestational_age: inData.get('gestational_age'), rch_id: inData.get('rch_id') });
   
   if (error) {
     console.error('Error adding patients:', error.message);

@@ -1,0 +1,54 @@
+import { supabase } from '$lib/supabaseClient';
+
+// Fetching must be self contained in +page.server.ts
+export async function handleFetch(): Promise<Patient[]> {
+  const { data, error } = await supabase.from('patients').select<'patients', Patient>();
+
+  if (error) {
+    console.error('Error fetching patients:', error.message);
+    return [];
+  } else {
+    console.log("Data loaded:", data);
+  }
+
+  return data;
+}
+
+
+// Insert Function
+export async function handleAddition(inData: FormData): Promise<void> {
+  const { error } = await supabase
+        .from('patients')
+        .insert({ patient_id: inData.get('patient_id'), date_of_usg: inData.get('date_of_usg'), patient_name: inData.get('patient_name'), husband_name: inData.get('husband_name'), patient_age: inData.get('patient_age'), last_menstrual_period: inData.get('last_menstrual_period'), number_of_male_children: inData.get('number_of_male_children'), number_of_female_children: inData.get('number_of_female_children'), male_children_ages: inData.get('male_children_ages'), female_children_ages: inData.get('female_children_ages'), referred_by: inData.get('referred_by'), mobile_no: inData.get('mobile_no'), address: inData.get('address') });
+  
+  if (error) {
+    console.error('Error adding patients:', error.message);
+  }
+}
+
+// Delete Function
+export async function handleDeletion(idList: string[]): Promise<void> {
+  const { error } = await supabase
+			.from('patients')
+			.delete()
+			.in('patient_id', idList);
+
+  if (error) {
+    console.error('Error deleting patients:', error.message);
+  }
+}
+
+// Helper for autofilling next patient ID.
+export async function getNewestId(): Promise<number> {
+  const { data, error } = await supabase
+        .from('patients')
+        .select('patient_id', { count: 'exact' })
+        .order('patient_id', { ascending: false })
+        .limit(1);
+  
+  if (error) {
+    console.error('Error fetching newest patient ID:', error.message);
+    return 0; // Return 0 if there's an error
+  }
+  return data[0]?.patient_id || 0;
+}

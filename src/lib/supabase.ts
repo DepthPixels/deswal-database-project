@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instanciate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
   graphql_public: {
     Tables: {
@@ -43,39 +43,45 @@ export type Database = {
         Row: {
           address: string
           date_of_usg: string
+          female_children_ages: string
           husband_name: string
-          id: number
           last_menstrual_period: string
+          male_children_ages: string
           mobile_no: number
           number_of_female_children: number
           number_of_male_children: number
           patient_age: number
+          patient_id: number
           patient_name: string
           referred_by: string
         }
         Insert: {
           address: string
           date_of_usg: string
+          female_children_ages: string
           husband_name: string
-          id?: number
           last_menstrual_period: string
+          male_children_ages: string
           mobile_no: number
           number_of_female_children: number
           number_of_male_children: number
           patient_age: number
+          patient_id?: number
           patient_name: string
           referred_by: string
         }
         Update: {
           address?: string
           date_of_usg?: string
+          female_children_ages?: string
           husband_name?: string
-          id?: number
           last_menstrual_period?: string
+          male_children_ages?: string
           mobile_no?: number
           number_of_female_children?: number
           number_of_male_children?: number
           patient_age?: number
+          patient_id?: number
           patient_name?: string
           referred_by?: string
         }

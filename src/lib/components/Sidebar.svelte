@@ -4,7 +4,7 @@
 
   <div class="h-16 flex items-center w-full">
     <!-- Logo Section -->
-    <a class="h-6 w-6 mx-auto" href="http://svelte.dev/">
+    <a class="h-6 w-6 mx-auto" href="/">
       <img
         class="h-6 w-6 mx-auto"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/512px-Svelte_Logo.svg.png"
@@ -16,7 +16,7 @@
     <!-- Items Section -->
     <li class="hover:bg-base-200">
       <a
-        href="."
+        href="/"
         class="h-16 px-6 flex flex justify-center items-center w-full
         focus:text-orange-500"
         aria-label="Database">
@@ -44,7 +44,7 @@
 
     <li class="hover:bg-base-200">
       <a
-        href="./docs"
+        href="/docs"
         class="h-16 px-6 flex flex justify-center items-center w-full
         focus:text-orange-500"
         aria-label="Documentation">

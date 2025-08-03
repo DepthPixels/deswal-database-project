@@ -1,28 +1,18 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { getNewestId, handleAddition } from '$lib/supabaseInterface';
-import { redirect } from '@sveltejs/kit';
 
 export const actions = {
-	default: async ({ request, locals }) => {
-		if (!locals.tenant) {
-			throw redirect(303, '/auth/login');
-		}
+	default: async (event) => {
+		// TODO log the user in
+		const inData = await event.request.formData();
 
-		const inData = await request.formData();
-
-		await handleAddition(inData, locals.tenant.id);
-		
-		throw redirect(303, '/');
+		handleAddition(inData);
 	}
 } satisfies Actions;
 
-export const load: PageServerLoad = async ({ locals }) => {
-	if (!locals.tenant) {
-		throw redirect(303, '/auth/login');
-	}
-
-	const newestId = await getNewestId(locals.tenant.id);
+export const load: PageServerLoad = async () => {
+	const newestId = await getNewestId();
 
 	return {
 		nextEmptyId: newestId + 1 // Increment to ensure the next ID is unique

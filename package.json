@@ -30,7 +30,6 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
-		"@supabase/ssr": "^0.6.1",
 		"@supabase/supabase-js": "^2.51.0",
 		"daisyui": "^5.0.46",
 		"dotenv": "^17.2.0"

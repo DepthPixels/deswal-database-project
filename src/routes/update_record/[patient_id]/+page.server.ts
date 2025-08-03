@@ -3,12 +3,8 @@ import type { Actions } from './$types';
 import { handleFetch, handleUpdate } from '$lib/supabaseInterface';
 import { redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ params, locals }) => {
-	if (!locals.tenant) {
-		throw redirect(303, '/auth/login');
-	}
-
-	const data = await handleFetch(parseInt(params.patient_id), locals.tenant.id);
+export const load: PageServerLoad = async ({ params }) => {
+	const data = await handleFetch(parseInt(params.patient_id));
 
 	return {
 		patients: data ?? [],
@@ -16,13 +12,10 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 };
 
 export const actions = {
-	default: async ({ request, locals }) => {
-		if (!locals.tenant) {
-			throw redirect(303, '/auth/login');
-		}
+	default: async (event) => {
+		const inData = await event.request.formData();
 
-		const inData = await request.formData();
-		await handleUpdate(inData, locals.tenant.id);
+		handleUpdate(inData);
 
 		throw redirect(303, '/');
 	}

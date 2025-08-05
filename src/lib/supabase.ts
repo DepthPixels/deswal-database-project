@@ -44,6 +44,7 @@ export type Database = {
           address: string
           date_of_usg: string
           female_children_ages: string
+          gestational_age: string
           husband_name: string
           last_menstrual_period: string
           male_children_ages: string
@@ -53,12 +54,14 @@ export type Database = {
           patient_age: number
           patient_id: number
           patient_name: string
+          rch_id: string
           referred_by: string
         }
         Insert: {
           address: string
           date_of_usg: string
           female_children_ages: string
+          gestational_age: string
           husband_name: string
           last_menstrual_period: string
           male_children_ages: string
@@ -68,12 +71,14 @@ export type Database = {
           patient_age: number
           patient_id?: number
           patient_name: string
+          rch_id: string
           referred_by: string
         }
         Update: {
           address?: string
           date_of_usg?: string
           female_children_ages?: string
+          gestational_age?: string
           husband_name?: string
           last_menstrual_period?: string
           male_children_ages?: string
@@ -83,6 +88,7 @@ export type Database = {
           patient_age?: number
           patient_id?: number
           patient_name?: string
+          rch_id?: string
           referred_by?: string
         }
         Relationships: []

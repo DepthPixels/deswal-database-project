@@ -8,12 +8,36 @@ export async function handleFetch(patient_id: number | null = null): Promise<Pat
       .select<'patients', Patient>()
       .eq('patient_id', patient_id);
   } else {
-    var { data, error } = await supabase.from('patients').select<'patients', Patient>().order('patient_id', { ascending: true });
+    var { data, error } = await supabase
+      .from('patients')
+      .select<'patients', Patient>()
+      .order('patient_id', { ascending: true });
   }
 
   if (error) {
     console.error('Error fetching patients:', error.message);
     return [];
+  }
+
+  return data ?? [];
+}
+
+export async function handleFetchFiltered(listFilter: ListFilter): Promise<Patient[]> {
+  if (listFilter === 'Female Children') {
+    var { data, error } = await supabase
+      .from('patients')
+      .select<'patients', Patient>()
+      .neq('number_of_female_children', 0)
+      .eq('number_of_male_children', 0)
+      .order('patient_id', { ascending: true });
+  } else if (listFilter === 'RPOC') {
+    var { data, error } = await supabase
+      .from('patients')
+      .select<'patients', Patient>()
+      .not('gestational_age', 'ilike', '%w%d')
+      .order('patient_id', { ascending: true });
+  } else {
+    var data: Patient[] | null = []
   }
 
   return data ?? [];

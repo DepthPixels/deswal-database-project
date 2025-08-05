@@ -30,12 +30,20 @@ export async function downloadList(listFilter: ListFilter): Promise<void> {
   ])
 
   autoTable(doc, {
-    head: [['Patient ID', 'Date of USG', 'Patient Name', 'Husband Name', 'Patient Age', 'Number of Male Children', 'Number of Female Children', 'Male Children Ages', 'Female Children Ages', 'Address', 'Mobile No', 'Referred By', 'Last Menstrual Period', 'Gestational Age', 'RCH ID']],
+    head: [[{content: 'Patient ID', styles: { cellWidth: 12 }}, {content: 'Date of USG', styles: { cellWidth: 18 }}, {content: 'Patient Name', styles: { cellWidth: 20 }}, {content: 'Husband Name', styles: { cellWidth: 20 }}, {content: 'Patient Age', styles: { cellWidth: 12 }}, {content: 'Number of Male Children', styles: { cellWidth: 13 }}, {content: 'Number of Female Children', styles: { cellWidth: 13 }}, {content: 'Male Children Ages', styles: { cellWidth: 13 }}, {content: 'Female Children Ages', styles: { cellWidth: 13 }}, {content: 'Address', styles: { cellWidth: 40 }}, {content: 'Mobile No', styles: { cellWidth: 23 }}, {content: 'Referred By', styles: { cellWidth: 40 }}, {content: 'Last Menstrual Period', styles: { cellWidth: 18 }}, {content: 'Gestational Age', styles: { cellWidth: 14 }}, {content: 'RCH ID', styles: { cellWidth: 18 }}]],
     body: tableRows,
+    margin: 5,
     theme: 'grid',
     rowPageBreak: 'avoid',
     showHead: 'firstPage',
+    headStyles: {
+      fillColor: undefined,
+      textColor: 20,
+      fontSize: 12,
+      fontStyle: 'bold',
+      lineWidth: 0.5,
+    },
   });
-  
-  doc.save(`${listFilter} List.pdf`);
+
+  doc.output('dataurlnewwindow', { filename: `${listFilter} List.pdf` });
 }

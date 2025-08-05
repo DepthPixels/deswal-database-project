@@ -44,7 +44,7 @@
 
     <li class="hover:bg-base-200">
       <a
-        href="/docs"
+        href="/pdfs"
         class="h-16 px-6 flex flex justify-center items-center w-full
         focus:text-orange-500"
         aria-label="Documentation">

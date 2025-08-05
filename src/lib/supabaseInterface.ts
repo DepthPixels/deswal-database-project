@@ -19,6 +19,25 @@ export async function handleFetch(patient_id: number | null = null): Promise<Pat
   return data ?? [];
 }
 
+export async function handleFetchFiltered(listFilter: ListFilter): Promise<Patient[]> {
+  if (listFilter === 'Female Children') {
+    var { data, error } = await supabase
+      .from('patients')
+      .select<'patients', Patient>()
+      .neq('number_of_female_children', 0)
+      .eq('number_of_male_children', 0);
+  } else if (listFilter === 'RPOC') {
+    var { data, error } = await supabase
+      .from('patients')
+      .select<'patients', Patient>()
+      .not('gestational_age', 'ilike', '%w%d');
+  } else {
+    var data: Patient[] | null = []
+  }
+
+  return data ?? [];
+}
+
 
 // Insert Function
 export async function handleAddition(inData: FormData): Promise<void> {

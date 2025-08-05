@@ -18,3 +18,5 @@ type Patient = {
   gestational_age: string;
   rch_id: string;
 };
+
+type ListFilter = 'Full' | 'RPOC' | 'Female Children';

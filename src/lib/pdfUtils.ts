@@ -1,11 +1,15 @@
 import { jsPDF } from 'jspdf'
 import { autoTable } from 'jspdf-autotable'
-import { handleFetch } from '$lib/supabaseInterface';
+import { handleFetch, handleFetchFiltered } from '$lib/supabaseInterface';
 
-export async function downloadFullList() {
-  const data = await handleFetch();
+export async function downloadList(listFilter: ListFilter): Promise<void> {
+  if (listFilter != 'Full') {
+    var data = await handleFetchFiltered(listFilter);
+  } else {
+    var data = await handleFetch();
+  }
 
-  const doc = new jsPDF();
+  const doc = new jsPDF({ orientation: 'landscape' });
 
   const tableRows = data.map(item => [
     item.patient_id,
@@ -27,7 +31,11 @@ export async function downloadFullList() {
 
   autoTable(doc, {
     head: [['Patient ID', 'Date of USG', 'Patient Name', 'Husband Name', 'Patient Age', 'Number of Male Children', 'Number of Female Children', 'Male Children Ages', 'Female Children Ages', 'Address', 'Mobile No', 'Referred By', 'Last Menstrual Period', 'Gestational Age', 'RCH ID']],
-    body: tableRows
+    body: tableRows,
+    theme: 'grid',
+    rowPageBreak: 'avoid',
+    showHead: 'firstPage',
   });
-  doc.save('full_list.pdf');
-} 
+  
+  doc.save(`${listFilter} List.pdf`);
+}

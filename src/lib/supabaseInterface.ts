@@ -113,3 +113,10 @@ export async function getNewestId(): Promise<number> {
   }
   return data[0]?.patient_id || 0;
 }
+
+export function toTitleCase(str: string): string {
+  return str.replace(
+    /\w\S*/g,
+    text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
+}

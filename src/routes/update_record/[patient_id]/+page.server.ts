@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
-import { handleFetch, handleUpdate } from '$lib/supabaseInterface';
+import { handleFetch, handleUpdate, toTitleCase } from '$lib/supabaseInterface';
 import { redirect } from '@sveltejs/kit';
 
 let originalId : number;
@@ -14,13 +14,6 @@ export const load: PageServerLoad = async ({ params }) => {
 		patients: data ?? [],
 	};
 };
-
-function toTitleCase(str: string): string {
-  return str.replace(
-    /\w\S*/g,
-    text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
-  );
-}
 
 export const actions = {
 	default: async (event) => {

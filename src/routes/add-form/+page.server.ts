@@ -1,11 +1,17 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
-import { getNewestId, handleAddition } from '$lib/supabaseInterface';
+import { getNewestId, handleAddition, toTitleCase } from '$lib/supabaseInterface';
 
 export const actions = {
 	default: async (event) => {
 		// TODO log the user in
 		const inData = await event.request.formData();
+
+		for (const [key, value] of inData.entries()) {
+			if (typeof value === 'string') {
+				inData.set(key, toTitleCase(value));
+			}
+		}
 
 		handleAddition(inData);
 	}

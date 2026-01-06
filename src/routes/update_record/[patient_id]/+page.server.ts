@@ -6,7 +6,7 @@ import { redirect } from '@sveltejs/kit';
 let originalId : number;
 
 export const load: PageServerLoad = async ({ params }) => {
-	const data = await handleFetch(parseInt(params.patient_id));
+	const data = await handleFetch(false, parseInt(params.patient_id));
 
 	originalId = parseInt(params.patient_id);
 

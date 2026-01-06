@@ -1,7 +1,7 @@
 import { supabase } from '$lib/supabaseClient';
 
 // Fetching must be self contained in +page.server.ts
-export async function handleFetch(patient_id: number | null = null): Promise<Patient[]> {
+export async function handleFetch(isAscending: boolean = true, patient_id: number | null = null): Promise<Patient[]> {
   if (patient_id) {
     var { data, error } = await supabase
       .from('patients')
@@ -11,7 +11,7 @@ export async function handleFetch(patient_id: number | null = null): Promise<Pat
     var { data, error } = await supabase
       .from('patients')
       .select<'patients', Patient>()
-      .order('patient_id', { ascending: true });
+      .order('patient_id', { ascending: isAscending });
   }
 
   if (error) {
@@ -22,19 +22,30 @@ export async function handleFetch(patient_id: number | null = null): Promise<Pat
   return data ?? [];
 }
 
-export async function handleFetchFiltered(listFilter: ListFilter): Promise<Patient[]> {
+export async function handleFetchFiltered(listFilter: ListFilter, startDate: Date, endDate: Date): Promise<Patient[]> {
   if (listFilter === 'Female Children') {
     var { data, error } = await supabase
       .from('patients')
       .select<'patients', Patient>()
       .neq('number_of_female_children', 0)
       .eq('number_of_male_children', 0)
+      .gte('date_of_usg', startDate)
+      .lte('date_of_usg', endDate)
       .order('patient_id', { ascending: true });
   } else if (listFilter === 'RPOC') {
     var { data, error } = await supabase
       .from('patients')
       .select<'patients', Patient>()
       .not('gestational_age', 'ilike', '%w%d')
+      .gte('date_of_usg', startDate)
+      .lte('date_of_usg', endDate)
+      .order('patient_id', { ascending: true });
+  } else if (listFilter === 'Full') {
+    var { data, error } = await supabase
+      .from('patients')
+      .select<'patients', Patient>()
+      .gte('date_of_usg', startDate)
+      .lte('date_of_usg', endDate)
       .order('patient_id', { ascending: true });
   } else {
     var data: Patient[] | null = []

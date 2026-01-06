@@ -2,12 +2,8 @@ import { jsPDF } from 'jspdf'
 import { autoTable } from 'jspdf-autotable'
 import { handleFetch, handleFetchFiltered } from '$lib/supabaseInterface';
 
-export async function downloadList(listFilter: ListFilter): Promise<void> {
-  if (listFilter != 'Full') {
-    var data = await handleFetchFiltered(listFilter);
-  } else {
-    var data = await handleFetch();
-  }
+export async function downloadList(listFilter: ListFilter, startDate: Date, endDate: Date): Promise<void> {
+  var data = await handleFetchFiltered(listFilter, startDate, endDate);
 
   const doc = new jsPDF({ orientation: 'landscape' });
 

@@ -2,8 +2,12 @@
   import { invalidateAll } from '$app/navigation';
   import { handleDeletion } from '$lib/supabaseInterface';
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation'
+  import { page as pageStore } from '$app/state';
 
   let { data } = $props();
+
+  let maxPage = $state(Math.ceil(data.paging.count / 40));
   let selectedRows: string[] = $state([]);
 
   let searchBar: HTMLInputElement; // Declare a variable to bind to the input element
@@ -26,6 +30,13 @@
       // Handle Enter key press
       console.log('Enter key pressed');
     }
+  }
+
+  function changePage(newPage: number) {
+    const url = new URL(pageStore.url);
+    url.searchParams.set('page', newPage.toString());
+
+    goto(url.toString(), { replaceState: true, keepFocus: true, invalidateAll: true })
   }
 </script>
 
@@ -128,5 +139,13 @@
       </tbody>
     </table>
     {/if}
+  </div>
+
+  <!-- Pagination -->
+   
+  <div class="join my-5">
+    <button onclick={() => changePage(data.paging.page - 1)} disabled={data.paging.page === 1} class="join-item btn">«</button>
+    <button class="join-item btn">Page {data.paging.page} of {maxPage}</button>
+    <button onclick={() => changePage(data.paging.page + 1)} disabled={data.paging.page === maxPage} class="join-item btn">»</button>
   </div>
 </div>

@@ -1,10 +1,17 @@
 import type { PageServerLoad } from './$types';
-import { handleFetch } from '$lib/supabaseInterface';
+import { getRowsCount, handleFetchRange } from '$lib/supabaseInterface';
 
-export const load: PageServerLoad = async () => {
-  const data = await handleFetch(false);
+export const load: PageServerLoad = async ({ url }) => {
+  const page = +(url.searchParams.get('page') || 1);
+
+  const data = await handleFetchRange(false, (page - 1) * 40, (page * 40) - 1);
+  const count = await getRowsCount();
 
   return {
     patients: data ?? [],
+    paging: {
+      count,
+      page
+    }
   };
 };

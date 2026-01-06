@@ -22,6 +22,21 @@ export async function handleFetch(isAscending: boolean = true, patient_id: numbe
   return data ?? [];
 }
 
+export async function handleFetchRange(isAscending: boolean = true, numStart: number, numEnd: number): Promise<Patient[]> {
+  let {data, error} = await supabase
+    .from('patients')
+    .select<'patients', Patient>()
+    .range(numStart, numEnd)
+    .order('patient_id', { ascending: isAscending });
+
+  if (error) {
+    console.error('Error fetching patients (ranged):', error.message);
+    return [];
+  }
+
+  return data ?? [];
+}
+
 export async function handleFetchFiltered(listFilter: ListFilter, startDate: Date, endDate: Date): Promise<Patient[]> {
   if (listFilter === 'Female Children') {
     var { data, error } = await supabase
@@ -48,12 +63,19 @@ export async function handleFetchFiltered(listFilter: ListFilter, startDate: Dat
       .lte('date_of_usg', endDate)
       .order('patient_id', { ascending: true });
   } else {
-    var data: Patient[] | null = []
+    var data: Patient[] | null = [];
   }
 
   return data ?? [];
 }
 
+export async function getRowsCount(): Promise<number> {
+  const { count, error } = await supabase
+    .from('patients')
+    .select('*', { count: 'exact', head: true});
+
+  return count ?? 0;
+}
 
 // Insert Function
 export async function handleAddition(inData: FormData): Promise<void> {
